@@ -27,7 +27,7 @@ sudo apt update -y
 sudo apt install python3-pip
 ```
 
-### Step 4: Set Up Environment Variables
+### Step 4: Set Up VM and Repo
 
 Setup Virtual env ( if required )
 
@@ -39,6 +39,15 @@ git clone https://github.com/denvrdata/examples.git
 cd simple-streamlit-chatbot
 pip3 install -r requirements.txt
 ```
+
+### Step 5: Install Ollama
+
+```
+sudo docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+docker exec -it ollama ollama run llama3.2
+```
+
+### Step 6: Set up Environment variables
 
 Configure the Ollama server IP address using an environment variable. This ensures that the application knows where to send the requests.
 
