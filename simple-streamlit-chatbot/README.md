@@ -1,6 +1,3 @@
-Here's a sample README file that you can use to outline the steps to execute the Streamlit chatbot example code. This README will provide instructions on how to set up, configure, and run the application using an Ollama backend.
-
----
 
 # Simple Streamlit Chatbot with Ollama
 
