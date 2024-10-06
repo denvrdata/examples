@@ -16,6 +16,6 @@ To start using the examples in this repository, you will need:
 Clone the repository:
 
 ```
-git clone https://github.com/yourusername/demo-examples.git
-cd demo-examples
+git clone https://github.com/denvrdata/examples.git
+cd examples
 ```
