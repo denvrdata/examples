@@ -9,30 +9,36 @@ This repository contains a simple chatbot application built using [Streamlit](ht
 - **Ollama Backend Integration**: Connects to the Ollama backend server for LLM-based responses.
 - **Environment Configuration**: Easily configure the Ollama backend server IP using an environment variable.
 
-## Prerequisites
-
-Before running the application, make sure you have the following:
-
-1. **Python 3.7+** installed on your system.
-2. An **Ollama Backend** server running and accessible. Replace the model and IP details according to your setup.
-3. **Streamlit** and **Requests** libraries installed. You can install these with:
-
-    ```bash
-    pip install streamlit requests
-    ```
 
 ## Getting Started
 
-### Step 1: Clone the Repository
+### Step 1: Denvr Cloud Account
 
-Clone this repository to your local machine:
+Setup your account to launch your GPU of choice ( A100-40G, A100-80G, H100, Gaudi2 )
 
-```bash
-git clone https://github.com/denvrdata/examples.git
-cd examples/simple-streamlit-chatbot
+https://console.cloud.denvrdata.com/account/login
+
+### Step 2: Launch the VM
+
+### Step 3: Install/Update packages
+
+```
+sudo apt update -y
+sudo apt install python3-pip
 ```
 
-### Step 2: Set Up Environment Variables
+### Step 4: Set Up Environment Variables
+
+Setup Virtual env ( if required )
+
+```
+pip3 install virtualenv
+virtualenv venv
+source venv/bin/activate
+git clone https://github.com/denvrdata/examples.git
+cd simple-streamlit-chatbot
+pip3 install -r requirements.txt
+```
 
 Configure the Ollama server IP address using an environment variable. This ensures that the application knows where to send the requests.
 
@@ -60,7 +66,7 @@ Replace `<your_ollama_ip>` with the actual IP address where your Ollama server i
 export OLLAMA_IP="<your_ollama_ip>"
 ```
 
-### Step 3: Run the Streamlit App
+### Step 5: Run the Streamlit App
 
 Once the environment is set up, run the Streamlit app using the following command:
 
@@ -68,7 +74,7 @@ Once the environment is set up, run the Streamlit app using the following comman
 streamlit run Chatbot.py
 ```
 
-### Step 4: Open the Application in Your Browser
+### Step 5: Open the Application in Your Browser
 
 After starting the app, Streamlit will output a local URL, usually something like:
 
@@ -78,26 +84,9 @@ Local URL: http://localhost:8501
 
 Open this URL in your browser to access the chatbot UI.
 
-### Step 5: Start Chatting
+### Step 7: Start Chatting
 
 You can now enter your messages in the text box, and the bot will respond using the model specified in the backend.
-
-## Code Overview
-
-The main components of the code are:
-
-1. **`get_ollama_response()`**: Sends user messages to the Ollama server using the `/api/chat` endpoint and retrieves the response.
-2. **Environment Configuration**: Uses the `OLLAMA_IP` environment variable to dynamically construct the Ollama backend URL.
-3. **Streamlit UI**: A simple interface for user inputs and displaying the chat history.
-
-### Example Configuration
-
-If the Ollama backend is running locally, you can set:
-
-```bash
-export OLLAMA_IP=localhost
-```
-
 
 
 ## Troubleshooting
