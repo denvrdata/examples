@@ -20,6 +20,10 @@ https://console.cloud.denvrdata.com/account/login
 
 ### Step 2: Launch the VM
 
+<img width="1126" alt="image" src="https://github.com/user-attachments/assets/0b226da0-0b1c-4551-a561-9032d30b48f1">
+
+
+
 ### Step 3: Install/Update packages
 
 ```
