@@ -32,22 +32,27 @@ sudo apt install python3-pip
 Setup Virtual env ( if required )
 
 ```
-pip3 install virtualenv
+sudo apt install python3-virtualenv
 virtualenv venv
 source venv/bin/activate
+```
+
+### Step 5: Clone the repo 
+
+```
 git clone https://github.com/denvrdata/examples.git
 cd simple-streamlit-chatbot
 pip3 install -r requirements.txt
 ```
 
-### Step 5: Install Ollama
+### Step 6: Install Ollama and server Llama 3.2 1B model
 
 ```
 sudo docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-docker exec -it ollama ollama run llama3.2
+sudo docker exec -it ollama ollama run llama3.2
 ```
 
-### Step 6: Set up Environment variables
+### Step 7: Set up Environment variables
 
 Configure the Ollama server IP address using an environment variable. This ensures that the application knows where to send the requests.
 
@@ -75,7 +80,7 @@ Replace `<your_ollama_ip>` with the actual IP address where your Ollama server i
 export OLLAMA_IP="<your_ollama_ip>"
 ```
 
-### Step 5: Run the Streamlit App
+### Step 8: Run the Streamlit App
 
 Once the environment is set up, run the Streamlit app using the following command:
 
@@ -83,7 +88,7 @@ Once the environment is set up, run the Streamlit app using the following comman
 streamlit run Chatbot.py
 ```
 
-### Step 5: Open the Application in Your Browser
+### Step 9: Open the Application in Your Browser
 
 After starting the app, Streamlit will output a local URL, usually something like:
 
@@ -93,7 +98,7 @@ Local URL: http://localhost:8501
 
 Open this URL in your browser to access the chatbot UI.
 
-### Step 7: Start Chatting
+### Step 10: Start Chatting
 
 You can now enter your messages in the text box, and the bot will respond using the model specified in the backend.
 
