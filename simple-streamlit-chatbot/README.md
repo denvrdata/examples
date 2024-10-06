@@ -98,11 +98,7 @@ If the Ollama backend is running locally, you can set:
 export OLLAMA_IP=localhost
 ```
 
-If the backend is running on a remote server with IP `130.250.171.37`, use:
 
-```bash
-export OLLAMA_IP=130.250.171.37
-```
 
 ## Troubleshooting
 
