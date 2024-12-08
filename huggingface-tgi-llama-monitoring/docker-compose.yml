@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  tgi:
+    image: ghcr.io/huggingface/text-generation-inference:latest
+    container_name: tgi
+    runtime: nvidia
+    environment:
+      - HF_HOME=/data
+      - HF_TOKEN=your_huggingface_token
+    ports:
+      - "8000:80"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+      - ./model:/data/model
+    command:
+      --model-id meta-llama/Llama-3.1-70B --max-total-tokens 4096
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - tgi
+      - dcgm-exporter
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+  dcgm-exporter:
+    image: nvidia/dcgm-exporter:latest
+    container_name: dcgm-exporter
+    runtime: nvidia
+    ports:
+      - "9400:9400"
+
+networks:
+  default:
+    driver: bridge
