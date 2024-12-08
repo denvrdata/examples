@@ -2,12 +2,12 @@ import torch
 from transformers import pipeline
 import requests
 import threading
-import time
+import time, os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-llm_host = ""
-server_url = f"http://{llm_host}/v1/chat/completions"  # Replace with your TGI endpoint
+llm_host = os.getenv('LLM_HOST', '')  # Replace 'LLM_HOST' with your env variable name
+server_url = f"http://{llm_host}/v1/chat/completions"
 headers = {"Content-Type": "application/json"}
 
 
@@ -31,7 +31,7 @@ pipe = pipeline(
 # Generate text with extended response length
 output = pipe(
     "Generate a list of creative and challenging writing prompts. Only list the prompts, no explanation or numbering",
-    max_length=1024,  # Allow up to 512 tokens in the response
+    max_length=2000,  # Allow up to 512 tokens in the response
     min_length=100,  # Ensure at least 100 tokens in the response
     temperature=0.7,  # Control randomness
     top_p=0.9  # Enable diverse sampling
@@ -42,11 +42,11 @@ print(output[0]["generated_text"])
 
 prompts = output[0]["generated_text"].split('\n')
 
-
+tgi_model = "meta-llama/Llama-3.3-70B-Instruct"
 
 def send_request(prompt):
     data = {
-        "model": model_id,
+        "model": tgi_model,
         "messages": [
             {"role": "user", "content": prompt}
         ],
