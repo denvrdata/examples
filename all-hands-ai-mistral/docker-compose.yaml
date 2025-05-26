@@ -1,0 +1,30 @@
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # allow a direct connection from container to the local machine
+    ports:
+      - "9090:9090"  # the default port used by Prometheus
+    volumes:
+      - ${PWD}/prometheus.yaml:/etc/prometheus/prometheus.yml  # mount Prometheus config file
+    depends_on:
+      - nvidia-dcgm-exporter  # Ensure Prometheus starts after the DCGM Exporter
+
+  grafana:
+    image: grafana/grafana:latest
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"  # the default port used by Grafana
+
+  nvidia-dcgm-exporter:
+    image: nvcr.io/nvidia/k8s/dcgm-exporter:4.2.3-4.1.1-ubuntu22.04
+    runtime: nvidia
+    cap_add:
+      - SYS_ADMIN  # Add required capabilities for NVIDIA GPU access
+    ports:
+      - "9400:9400"  # Expose port for the DCGM exporter
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all  # Expose all available GPUs
+    restart: unless-stopped

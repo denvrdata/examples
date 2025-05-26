@@ -6,6 +6,7 @@ Upgrade `vllm` to the latest version:
 
 ```bash
 pip install vllm --upgrade
+pip install --upgrade pyopenssl
 ````
 
 ### 2. Verify `mistral_common` Installation
@@ -35,7 +36,7 @@ docker run --runtime nvidia --gpus all \
 Start the server for the `Devstral-Small-2505` model:
 
 ```bash
-vllm serve mistralai/Devstral-Small-2505 --tokenizer_mode mistral --config_format mistral --load_format mistral --tool-call-parser mistral --enable-auto-tool-choice --tensor-parallel-size 2
+vllm serve mistralai/Devstral-Small-2505 --tokenizer_mode mistral --config_format mistral --load_format mistral --tool-call-parser mistral --enable-auto-tool-choice --tensor-parallel-size 8
 ```
 
 
@@ -50,7 +51,7 @@ docker run -it --rm --pull=always \
     -e LOG_ALL_EVENTS=true \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v ~/.openhands-state:/.openhands-state \
-    -p 3000:3000 \
+    -p 3001:3000 \
     --add-host host.docker.internal:host-gateway \
     --name openhands-app \
     docker.all-hands.dev/all-hands-ai/openhands:0.38
