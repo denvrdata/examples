@@ -1,7 +1,7 @@
 
 ## Setup Instructions
 
-### 1. Install `vllm`
+###  Install `vllm`
 Upgrade `vllm` to the latest version:
 
 ```bash
@@ -9,7 +9,7 @@ pip install vllm --upgrade
 pip install --upgrade pyopenssl
 ````
 
-### 2. Verify `mistral_common` Installation
+###  Verify `mistral_common` Installation
 
 Check the installed version of `mistral_common`:
 
@@ -18,7 +18,7 @@ python -c "import mistral_common; print(mistral_common.__version__)"
 ```
 
 
-### 3. Serve the Model
+###  Serve the Model
 
 Start the server for the `Devstral-Small-2505` model:
 
@@ -28,8 +28,25 @@ vllm serve mistralai/Devstral-Small-2505 --tokenizer_mode mistral --config_forma
 ```
 
 
+### Setup Docker to export  all metrics
 
-### 4. Run OpenHands App in Docker
+Enable Docker metrics export for Prometheus
+
+`/etc/docker/daemon.json`
+
+```
+{
+  "metrics-addr": "127.0.0.1:9323"
+}
+```
+
+`service docker restart`
+
+###  Launch the Prometheus stack to monitor
+
+`docker compose up -d`
+
+###  Run OpenHands App in Docker
 
 Start the OpenHands app in a Docker container:
 
@@ -45,20 +62,16 @@ docker run -it --rm --pull=always \
     docker.all-hands.dev/all-hands-ai/openhands:0.38
 ```
 
-### 5. Setup Docker to export  all metrics
+Open the OpenHands Web session at `http://<IP>:3001`
 
-Enable Docker metrics export for Prometheus
+![image](https://github.com/user-attachments/assets/ce63605a-eb9d-4066-8771-a3134ce898a2)
 
-`/etc/docker/daemon.json`
+Click on Advanced Setting and point to your self hosted LLM
 
-```
-{
-  "metrics-addr": "127.0.0.1:9323"
-}
-```
+![image](https://github.com/user-attachments/assets/94424d7c-74cd-4880-a9db-49a273a6c29e)
 
-`service docker restart`
+Start the new conversion to begin your "Vibe Coding"
 
-### 6. Launch the Prometheus stack to monitor
+![image](https://github.com/user-attachments/assets/d3ab6749-5722-4dab-b7a0-8c8e63852ebc)
 
-`docker compose up -d`
+
