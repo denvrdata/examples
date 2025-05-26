@@ -46,6 +46,16 @@ Enable Docker metrics export for Prometheus
 
 `docker compose up -d`
 
+Grafana will be up at `http://<IP>:3000`
+
+- Add Promethues as data source
+
+![image](https://github.com/user-attachments/assets/2381bd01-bf9a-4a0e-9376-d07fa9cb8d5f)
+
+- Import the vLLM dashboard from the repo vllm_dashboard.json file
+- Nvidia DCGM Dashboard - https://grafana.com/grafana/dashboards/12239
+  
+
 ###  Run OpenHands App in Docker
 
 Start the OpenHands app in a Docker container:
@@ -74,4 +84,8 @@ Start the new conversion to begin your "Vibe Coding"
 
 ![image](https://github.com/user-attachments/assets/d3ab6749-5722-4dab-b7a0-8c8e63852ebc)
 
+You can see the Grafana dashboards with vLLM and Nvidia data
 
+![image](https://github.com/user-attachments/assets/48b52587-627f-4ded-8d8e-2bf93e4fee35)
+
+![image](https://github.com/user-attachments/assets/6adad2c5-c4bf-4dd7-acc5-22425f0cba53)
