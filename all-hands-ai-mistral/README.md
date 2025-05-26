@@ -17,31 +17,19 @@ Check the installed version of `mistral_common`:
 python -c "import mistral_common; print(mistral_common.__version__)"
 ```
 
-### 3. Run Docker with `vllm`
 
-Run the Docker container using NVIDIA GPUs:
-
-```bash
-docker run --runtime nvidia --gpus all \
-    -v ~/.cache/huggingface:/root/.cache/huggingface \
-    --env "HUGGING_FACE_HUB_TOKEN=<secret>" \
-    -p 8000:8000 \
-    --ipc=host \
-    vllm/vllm-openai:latest \
-    --model mistralai/Mistral-7B-v0.1
-```
-
-### 4. Serve the Model
+### 3. Serve the Model
 
 Start the server for the `Devstral-Small-2505` model:
 
 ```bash
+screen -S vllm
 vllm serve mistralai/Devstral-Small-2505 --tokenizer_mode mistral --config_format mistral --load_format mistral --tool-call-parser mistral --enable-auto-tool-choice --tensor-parallel-size 8
 ```
 
 
 
-### 5. Run OpenHands App in Docker
+### 4. Run OpenHands App in Docker
 
 Start the OpenHands app in a Docker container:
 
@@ -57,7 +45,7 @@ docker run -it --rm --pull=always \
     docker.all-hands.dev/all-hands-ai/openhands:0.38
 ```
 
-### 6. Setup Prometheus to capture all metrics
+### 5. Setup Docker to export  all metrics
 
 Enable Docker metrics export for Prometheus
 
@@ -69,12 +57,8 @@ Enable Docker metrics export for Prometheus
 }
 ```
 
-Restart docker service
+`service docker restart`
 
-```
-docker run --name my-prometheus \
-    --mount type=bind,source=./prometheus.yml,destination=/etc/prometheus/prometheus.yml \
-    -p 9090:9090 \
-    --add-host host.docker.internal=host-gateway \
-    prom/prometheus
-```
+### 6. Launch the Prometheus stack to monitor
+
+`docker compose up -d`
