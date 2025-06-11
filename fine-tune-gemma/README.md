@@ -1,12 +1,33 @@
-# Install CUDA Toolkit 12.4
+
+# From Base Image of Ubuntu 22
 
 ```
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+export distro=ubuntu2204
+export arch=x86_64
+wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt update
+wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-archive-keyring.gpg
+sudo mv cuda-archive-keyring.gpg /usr/share/keyrings/cuda-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/cuda-archive-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/ /" \
+    | tee /etc/apt/sources.list.d/cuda-$distro-$arch.list
+
+sudo apt install cuda-drivers-550
+```
+
+# Steps for Pre-installed CUDA 12.4 driver Image
+
+```
+export distro=ubuntu2204
+export arch=x86_64
+wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
 sudo apt-get -y install cuda-toolkit-12-4
+```
 
 # Install Python packages
+```
 pip install jupyterlab
 pip install "torch>=2.4.0" tensorboard
 pip install "transformers>=4.51.3"
@@ -27,6 +48,9 @@ pip install flash-attn
 # Hugging Face CLI
 pip install huggingface-hub
 
-# Launch JupyterLab
+```
+
+# Launch JupyterLab (Optional)
+```
 jupyter lab --ip 0.0.0.0 --port 8888 --no-browser
 ```
