@@ -12,7 +12,8 @@ sudo mv cuda-archive-keyring.gpg /usr/share/keyrings/cuda-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/cuda-archive-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/ /" \
     | tee /etc/apt/sources.list.d/cuda-$distro-$arch.list
 
-sudo apt install cuda-drivers-550
+sudo apt install python3-pip -y
+sudo apt install cuda-drivers-550 -y
 ```
 
 # Steps for Pre-installed CUDA 12.4 driver Image
