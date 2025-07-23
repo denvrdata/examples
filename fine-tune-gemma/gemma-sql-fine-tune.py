@@ -51,7 +51,7 @@ torch_dtype = torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else 
 model_kwargs = dict(
     attn_implementation="eager",
     torch_dtype=torch_dtype,
-    device_map="auto",
+    device_map={"": torch.cuda.current_device()},
     quantization_config=BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_use_double_quant=True,
